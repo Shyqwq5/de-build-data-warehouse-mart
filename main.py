@@ -33,19 +33,22 @@ def make_good_image(flatten_image):
 
 def make_good_label(predict_result):
     label = np.argmax(predict_result)
-    if label == 0:
-        return "blank"
-    elif label == 1:
-        return "horizontal line"
-    else:
-        return  "vertical line"
+    return label_dict[label]
+
+label_dict = {
+    0:"blank",
+    1:"horizontal line",
+    2:"vertical line",
+    3:'diagonal line'
+}
+
+
 
 i = np.random.randint(len(X_test))
-
 result  = model(np.array([X_test[i]]))
 print("The image:")
 print(make_good_image(X_test[i]))
 print("The prediction:")
 print(make_good_label(result))
 print("The true:")
-print(y_test[i])
+print(label_dict[y_test[i]])
